@@ -5,17 +5,20 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func removeElements(head *ListNode, val int) (newHead *ListNode) {
-	newHead = head
-	before := &ListNode{Next: head}
-	for head.Next != nil {
-		if head.Val == val {
-			before.Next = head.Next
+func removeElements(head *ListNode, val int) *ListNode {
+	sentinel := &ListNode{Next: head}
+	before := sentinel
+	curr := head
+	for {
+		if curr == nil {
+			break
+		}
+		if curr.Val == val {
+			before.Next = curr.Next
 		} else {
 			before = before.Next
 		}
-		head = head.Next
+		curr = curr.Next
 	}
-
-	return newHead
+	return sentinel.Next
 }

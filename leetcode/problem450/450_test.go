@@ -2,6 +2,7 @@ package problem450
 
 import (
 	"fmt"
+	"sort"
 	"testing"
 )
 
@@ -12,8 +13,14 @@ type TreeNode struct {
 }
 
 func TestSlices(t *testing.T) {
-	sliceA := []int{1, 2, 3, 4, 5}
-	sliceB := sliceA[:3]
-	sliceB[0] = 6
-	fmt.Println(sliceA)
+	// Create a slice of strings
+	strSlice := []string{"apple", "banana", "cherry", "date"}
+
+	// Sort the slice of strings in descending order
+	sort.SliceStable(strSlice, func(i, j int) bool {
+		return strSlice[i] > strSlice[j]
+	})
+
+	// Print the sorted slice
+	fmt.Println(strSlice)
 }

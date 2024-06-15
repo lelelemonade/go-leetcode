@@ -18,3 +18,23 @@ func Test_Problem203(t *testing.T) {
 
 	fmt.Println(removeElements(head, 6))
 }
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func removeElements(head *ListNode, val int) *ListNode {
+	dummy := &ListNode{Val: 0, Next: head}
+	iter := dummy
+
+	for iter.Next != nil {
+		if iter.Next.Val == val {
+			iter.Next = iter.Next.Next
+		} else {
+			iter = iter.Next
+		}
+	}
+
+	return dummy.Next
+}

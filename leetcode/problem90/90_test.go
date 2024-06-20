@@ -2,6 +2,7 @@ package problem90
 
 import (
 	"fmt"
+	"slices"
 	"testing"
 )
 
@@ -10,38 +11,24 @@ func Test90(t *testing.T) {
 }
 
 func subsetsWithDup(nums []int) [][]int {
-	result := [][]int{}
+	slices.Sort(nums)
 
-	notTriedSet := make(map[int]struct{}, len(nums))
+	results := make([][]int, 0)
 
-	for _, num := range nums {
-		notTriedSet[num] = struct{}{}
-	}
+	backtrack(nums, []int{}, &results)
 
-	backtrack([]int{}, notTriedSet, &result)
-
-	return result
+	return results
 }
 
-func backtrack(alreadyTriedSet []int, notTriedSet map[int]struct{}, result *[][]int) {
-	resultToAppend := make([]int, len(alreadyTriedSet))
+func backtrack(nums []int, chosen []int, results *[][]int) {
+	result := make([]int, len(chosen))
+	copy(result, chosen)
+	*results = append(*results, result)
 
-	for key, value := range alreadyTriedSet {
-		resultToAppend[key] = value
-	}
-	*result = append(*result, resultToAppend)
-
-	for k := range notTriedSet {
-		if len(alreadyTriedSet) == 0 || (len(alreadyTriedSet) > 0 && k > alreadyTriedSet[len(alreadyTriedSet)-1]) {
-			nextTrySet := append(alreadyTriedSet, k)
-			nextNotTrySet := make(map[int]struct{}, len(notTriedSet))
-			for key, value := range notTriedSet {
-				nextNotTrySet[key] = value
-			}
-
-			delete(nextNotTrySet, k)
-
-			backtrack(nextTrySet, notTriedSet, result)
+	for i := 0; i < len(nums); i++ {
+		backtrack(nums[i+1:], append(chosen, nums[i]), results)
+		for i < len(nums)-1 && nums[i] == nums[i+1] {
+			i++
 		}
 	}
 }

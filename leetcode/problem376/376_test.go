@@ -37,5 +37,4 @@ func wiggleMaxLength(nums []int) int {
 	}
 
 	return max(maxBotEnd, maxTopEnd)
-
 }

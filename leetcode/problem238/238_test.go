@@ -7,42 +7,25 @@ import (
 )
 
 func productExceptSelf(nums []int) []int {
-    total:=1
-	zeroCount:=0
+    answer:=make([]int,len(nums))
+	answer[0]=1
 
-	for _,v :=range nums {
-		if v == 0 {
-			zeroCount++
-		}
-		total*=v
+	leftProduct:=1
+	for i:=0;i<len(nums)-1;i++ {
+		leftProduct*=nums[i]
+		answer[i+1]=leftProduct
 	}
 
-	if zeroCount == 0 {
-		for i:=0;i<len(nums);i++{
-			nums[i]=total/nums[i]
-		}
-	}else if zeroCount == 1 {
-		for i:=0;i<len(nums);i++{
-			if nums[i] == 0 {
-				nums[i]=1
-				for j:=0;j<len(nums);j++{
-					if i!=j {
-						nums[i]*=nums[j]
-						nums[j]=0
-					}
-				}
-				break
-			}
-		}
-	}else {
-		for i:=0;i<len(nums);i++{
-			nums[i]=0
-		}
+	rightProduct:=1
+	for i:=len(nums)-1;i>=0;i-- {
+		answer[i]=answer[i]*rightProduct
+		rightProduct*=nums[i]
 	}
-	return nums
+
+	return answer
 }
 
 func Test238(t *testing.T) {
-	// assert.Equal(t, []int{24,12,8,6},productExceptSelf([]int{1,2,3,4}))
+	assert.Equal(t, []int{24,12,8,6},productExceptSelf([]int{1,2,3,4}))
 	assert.Equal(t, []int{0,0,9,0,0},productExceptSelf([]int{-1,1,0,-3,3}))
 }

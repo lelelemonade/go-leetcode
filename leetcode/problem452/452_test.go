@@ -27,31 +27,7 @@ func findMinArrowShots(points [][]int) int {
 		for i < len(points) && arrowValue >= points[i][0] {
 			i++
 		}
-
 	}
 
 	return minArrow
-
-	//resultMap := make(map[int]int)
-	//
-	//for _, v := range points {
-	//	for i := v[0]; i <= v[1]; i++ {
-	//		if resultMap[i] == 0 {
-	//			resultMap[i] = 1
-	//		} else {
-	//			resultMap[i] = resultMap[i] + 1
-	//		}
-	//	}
-	//}
-	//
-	//maxKey := 0
-	//maxValue := 0
-	//
-	//for k, v := range resultMap {
-	//	if v > maxValue {
-	//		maxKey = k
-	//	}
-	//}
-	//
-	//return maxKey
 }

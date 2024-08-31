@@ -14,40 +14,19 @@ func Test215(t *testing.T) {
 }
 
 func findKthLargest(nums []int, k int) int {
-	if len(nums) <= 1 {
-		return nums[0]
-	} else if len(nums) == 2 && k == 2 {
-		return min(nums[0], nums[1])
-	} else if len(nums) == 2 && k == 1 {
-		return max(nums[0], nums[1])
-	}
-	pivot := nums[0]
+    var bucket [20001]int
 
-	i, j := 1, len(nums)-1
+    for _,v := range nums {
+        bucket[v+10000]++
+    }
 
-	for {
-		for i < j && nums[i] < pivot {
-			i++
-		}
-		for i < j && nums[j] > pivot {
-			j--
-		}
-		if i == j {
-			if nums[i] > pivot {
-				nums[i-1], nums[0] = nums[0], nums[i-1]
-			} else {
-				nums[i], nums[0] = nums[0], nums[i]
-			}
-			break
-		}
-		nums[i], nums[j] = nums[j], nums[i]
-	}
+    count:=0
+    for i:=20000;i>=0;i--{
+        count+= bucket[i]
+        if count >= k{
+            return i-10000
+        }
+    }
 
-	if i-1 < len(nums)-k {
-		return findKthLargest(nums[i:], k)
-	} else if i-1 > len(nums)-k {
-		return findKthLargest(nums[:i], k-i)
-	} else {
-		return nums[i-1]
-	}
+    return -1
 }

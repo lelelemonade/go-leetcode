@@ -1,15 +1,18 @@
 package problem50
 
-import "math"
 
 func myPow(x float64, n int) float64 {
-	math.Pow()
-	positivePow:=func(x float64,n int)(result float64){
-		result=1
-		for i:=0;i<n;i++{
-			result*=x
+	var positivePow func(x float64,n int)(result float64)
+	positivePow=func(x float64,n int)(result float64){
+		if n==1{
+			return x
 		}
-		return
+		next:=positivePow(x,n>>1)
+		if n&1==0{
+			return next*next
+		}else{
+			return next*next*x
+		}
 	}
     if n==0||x==1||(x==-1&& n%2!=1){
 		return 1

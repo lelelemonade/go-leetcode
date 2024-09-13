@@ -8,9 +8,10 @@ import (
 )
 
 func minimumSubarrayLength(nums []int, k int) int {
-	if k==0{
+	if k == 0 {
 		return 1
 	}
+
 	if len(nums) == 0 {
 		return -1
 	}
@@ -29,7 +30,7 @@ func minimumSubarrayLength(nums []int, k int) int {
 			left++
 		}
 	}
-	if result == math.MaxInt{
+	if result == math.MaxInt {
 		return -1
 	}
 	return result
@@ -39,5 +40,5 @@ func Test3097(t *testing.T) {
 	// assert.Equal(t,1,minimumSubarrayLength([]int{1,2,3},2))
 	// assert.Equal(t,3,minimumSubarrayLength([]int{2,1,8},10))
 	// assert.Equal(t, 1, minimumSubarrayLength([]int{1, 2}, 0))
-	assert.Equal(t, 3, minimumSubarrayLength([]int{1,2,32,21}, 55))
+	assert.Equal(t, 3, minimumSubarrayLength([]int{1, 2, 32, 21}, 55))
 }
